@@ -23,13 +23,17 @@ def load_and_merge(final_dataset_path: str) -> pd.DataFrame:
 
     df['day_of_week'] = df['date'].dt.dayofweek
 
+    df['lagged_target']        = df['target'].shift(1)
+    df['sentiment_std_5d']     = df['avg_sentiment'].rolling(5).std()
+    df['sentiment_vs_trend']   = df['avg_sentiment'] - df['rolling_7d_sentiment']
+
     # drops empty values
     df = df.dropna().reset_index(drop=True)
 
     return df
 
 
-def temporal_split(df: pd.DataFrame, split_date: str = '2024-01-01'):
+def temporal_split(df: pd.DataFrame, split_date: str = '2024-09-01'):
     #Splits DF into train and test with two dates(before_ and after_ split_date
     
     split = pd.Timestamp(split_date)
@@ -60,6 +64,9 @@ def get_feature_matrix(df: pd.DataFrame):
         'ma_10',
         'volume',
         'day_of_week',
+        'lagged_target',
+        'sentiment_std_5d',
+        'sentiment_vs_trend',
     ]
     TARGET = 'target'
 

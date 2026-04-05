@@ -34,7 +34,7 @@ def evaluate_classifier(name: str, model, X_train, y_train, X_test, y_test,
     print(f"ROC-AUC        : {auc:.4f}")
     print(f"Avg Precision  : {ap:.4f}")
     print(f"\nConfusion Matrix:\n{confusion_matrix(y_test, y_pred)}")
-    print(f"\nClassification Report:\n{classification_report(y_test, y_pred, digits=3)}")
+    print(f"\nClassification Report:\n{classification_report(y_test, y_pred, digits=3, zero_division=0)}")
 
     return {'model': name, 'train_acc': train_acc, 'test_acc': acc,
             'gap': gap, 'roc_auc': auc, 'avg_precision': ap}
@@ -57,7 +57,7 @@ def plot_roc_curve(models_dict: dict, X_test, y_test, title: str = "ROC Curves")
     plt.title(title)
     plt.legend()
     plt.tight_layout()
-    plt.savefig('notebooks/figures/roc_curves.png', dpi=150)
+    plt.savefig('figures/roc_curves.png', dpi=150)
     plt.show()
 
 
@@ -74,7 +74,7 @@ def plot_confusion_matrix(model, X_test, y_test, model_name: str = "XGBoost"):
     plt.ylabel("Actual")
     plt.title(f"Confusion Matrix — {model_name}")
     plt.tight_layout()
-    plt.savefig('notebooks/figures/confusion_matrix.png', dpi=150)
+    plt.savefig('figures/confusion_matrix.png', dpi=150)
     plt.show()
 
 
@@ -86,11 +86,13 @@ def plot_feature_importance(model, feature_names: list, top_n: int = 10):
     importance = model.feature_importances_
     idx = np.argsort(importance)[::-1][:top_n]
     plt.figure(figsize=(8, 5))
-    sns.barplot(x=importance[idx], y=np.array(feature_names)[idx], palette='Blues_r')
+    feat_labels = np.array(feature_names)[idx]
+    sns.barplot(x=importance[idx], y=feat_labels, hue=feat_labels,
+                palette='Blues_r', legend=False)
     plt.xlabel("Importance Score")
     plt.title(f"Top {top_n} Feature Importances")
     plt.tight_layout()
-    plt.savefig('notebooks/figures/feature_importance.png', dpi=150)
+    plt.savefig('figures/feature_importance.png', dpi=150)
     plt.show()
 
 
@@ -130,7 +132,7 @@ def backtest_simulation(model, X_test, y_test, test_df: pd.DataFrame):
     plt.title("Strategy vs Buy-and-Hold (Test Period)")
     plt.legend()
     plt.tight_layout()
-    plt.savefig('notebooks/figures/backtest.png', dpi=150)
+    plt.savefig('figures/backtest.png', dpi=150)
     plt.show()
 
     return results
