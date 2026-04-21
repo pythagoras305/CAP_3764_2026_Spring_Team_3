@@ -13,6 +13,8 @@ dependencies:
   - scipy
   - scikit-learn
   - xgboost
+  - optuna
+  - shap
   - nltk
   - jupyter
   - jupyterlab
