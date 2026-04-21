@@ -12,6 +12,7 @@ dependencies:
   - seaborn
   - scipy
   - scikit-learn
+  - xgboost
   - nltk
   - jupyter
   - jupyterlab
