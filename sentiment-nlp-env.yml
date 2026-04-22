@@ -13,8 +13,6 @@ dependencies:
   - scipy
   - scikit-learn
   - xgboost
-  - optuna
-  - shap
   - nltk
   - jupyter
   - jupyterlab
@@ -25,6 +23,11 @@ dependencies:
   - tqdm
   - certifi
   - packaging
+  - fastapi
+  - uvicorn
+  - streamlit
+  - plotly
+  - python-multipart
 
   - pip:
       - yfinance==1.1.0
