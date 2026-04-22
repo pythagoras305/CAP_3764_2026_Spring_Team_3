@@ -118,6 +118,101 @@ jupyter notebook
 
 ---
 
+## Deployment
+
+Use this section to run and deploy the FastAPI backend and Streamlit frontend in `deployment/`.
+
+### 1) Prerequisites
+
+- Activate the project environment:
+
+```
+conda activate cap_3764_env
+```
+
+- If needed, install deployment dependencies:
+
+```
+pip install fastapi uvicorn streamlit requests plotly scikit-learn xgboost joblib pandas numpy
+```
+
+### 2) Train and Save Models (One-Time)
+
+From the `deployment` folder, train and save model artifacts to `deployment/models/`:
+
+```
+cd deployment
+python fast_api.py --train --data ../data/processed/final_dataset.csv
+```
+
+### 3) Run FastAPI Locally
+
+Start the API server from `deployment/`:
+
+```
+uvicorn fast_api:app --host 0.0.0.0 --port 8000 --reload
+```
+
+Useful endpoints:
+
+- `http://127.0.0.1:8000/`
+- `http://127.0.0.1:8000/health`
+- `http://127.0.0.1:8000/docs`
+
+### 4) Run Streamlit Locally
+
+In a second terminal (still from `deployment/`), run:
+
+```
+streamlit run streamlit.py --server.port 8501
+```
+
+Then open:
+
+- `http://127.0.0.1:8501`
+
+If your API runs on a different URL, set:
+
+```
+export API_URL="http://<your-api-host>:8000"
+streamlit run streamlit.py
+```
+
+### 5) Deploy FastAPI (Production)
+
+Recommended: deploy FastAPI as a web service (for example, Render, Railway, or an Ubuntu VM with Docker/systemd).
+
+- Start command:
+
+```
+uvicorn fast_api:app --host 0.0.0.0 --port $PORT
+```
+
+- Ensure the `deployment/models/` directory is included on the server.
+- Enable CORS rules in `fast_api.py` for your Streamlit domain if hosting frontend and API separately.
+
+### 6) Deploy Streamlit (Production)
+
+Recommended: deploy Streamlit on Streamlit Community Cloud or as a separate web service.
+
+- Start command:
+
+```
+streamlit run streamlit.py --server.port $PORT --server.address 0.0.0.0
+```
+
+- Set environment variable `API_URL` to the public FastAPI URL.
+- Verify that Streamlit can call FastAPI endpoints over HTTPS.
+
+### 7) Quick Deployment Checklist
+
+- FastAPI service is reachable and `/health` returns success.
+- Streamlit app loads and can fetch API metadata.
+- `API_URL` points to deployed FastAPI URL.
+- Trained models and `metadata.json` are present in `deployment/models/`.
+
+---
+
 ## Project Workflow
 
 1. Collect financial news data

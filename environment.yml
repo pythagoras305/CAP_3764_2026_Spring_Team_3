@@ -12,6 +12,7 @@ dependencies:
   - seaborn
   - scipy
   - scikit-learn
+  - xgboost
   - nltk
   - jupyter
   - jupyterlab
@@ -22,6 +23,11 @@ dependencies:
   - tqdm
   - certifi
   - packaging
+  - fastapi
+  - uvicorn
+  - streamlit
+  - plotly
+  - python-multipart
 
   - pip:
       - yfinance==1.1.0

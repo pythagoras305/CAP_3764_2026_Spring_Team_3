@@ -1,0 +1,30 @@
+{
+  "features": [
+    "avg_sentiment",
+    "rolling_3d_sentiment",
+    "rolling_7d_sentiment",
+    "daily_return",
+    "price_momentum_5d",
+    "high_low_range",
+    "ma_5",
+    "ma_10",
+    "volume",
+    "day_of_week",
+    "lagged_target",
+    "sentiment_std_5d",
+    "sentiment_vs_trend"
+  ],
+  "target_meaning": {
+    "0": "DOWN",
+    "1": "UP"
+  },
+  "split_date": "2024-09-01",
+  "models": {
+    "logistic_regression": {
+      "test_accuracy": 0.5903614457831325
+    },
+    "xgboost": {
+      "test_accuracy": 0.5903614457831325
+    }
+  }
+}
