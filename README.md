@@ -124,7 +124,7 @@ conda env create -f sentiment-nlp-env.yml
 ### Step 3: Activate Environment
 
 ```bash
-conda activate cap_3764_env
+conda activate sentiment-project
 ```
 
 ### Step 4: Launch Jupyter Notebook
