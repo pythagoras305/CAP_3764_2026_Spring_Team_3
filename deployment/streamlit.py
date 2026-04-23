@@ -376,7 +376,7 @@ with tab_about:
     st.subheader("About this app")
     st.markdown("""
 Frontend for a FastAPI service that serves the two models trained in
-`notebooks/models.ipynb`:
+`notebooks/04_models.ipynb`:
 
 - **Logistic Regression** (StandardScaler → LR, C=0.1)
 - **XGBoost** (300 trees, depth 4, lr 0.05)
